@@ -497,30 +497,7 @@ function closeAboutModal() {
   if (modal) modal.classList.remove('show');
 }
 
-// Phone & Global Share Modal
-function openPhoneModal() {
-  const modal = document.getElementById('phone-modal');
-  if (modal) modal.classList.add('show');
-}
 
-function closePhoneModal() {
-  const modal = document.getElementById('phone-modal');
-  if (modal) modal.classList.remove('show');
-}
-
-function copyGlobalUrl() {
-  const input = document.getElementById('global-url-input');
-  if (input) {
-    input.select();
-    input.setSelectionRange(0, 99999);
-    navigator.clipboard.writeText(input.value).then(() => {
-      showToast('Global link copied to clipboard!');
-    }).catch(() => {
-      document.execCommand('copy');
-      showToast('Global link copied!');
-    });
-  }
-}
 
 // Toggle Wishlist on Course Details
 function toggleWishlist() {
