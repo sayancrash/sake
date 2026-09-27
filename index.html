@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UBT Prep — National University Test Educational System</title>
+  <meta name="description" content="Prepare for the National University Test. Study smart, practice more, and achieve your target score with structured courses and assignments.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- =====================================================================
+       TOP PREVIEW BAR (Directly matching the 6 screens in the design photo)
+       ===================================================================== -->
+  <div class="screen-switcher-bar">
+    <div class="screen-switcher-label">
+      <span>Screen Preview:</span>
+      <span class="badge-live">Live</span>
+    </div>
+    <div class="screen-buttons-group">
+      <button class="screen-btn active" data-screen="screen-home">1. Home page — басты бет</button>
+      <button class="screen-btn" data-screen="screen-auth">2. Login / Sign up — кіру және тіркелу</button>
+      <button class="screen-btn" data-screen="screen-courses">3. Courses — курстар тізімі</button>
+      <button class="screen-btn" data-screen="screen-course-details">4. Course details — толық ақпарат</button>
+      <button class="screen-btn" data-screen="screen-dashboard">5. Student dashboard — жеке кабинет</button>
+      <button class="screen-btn" data-screen="screen-assignments">6. Progress / Assignments — үлгерім</button>
+      <button class="phone-badge-btn" onclick="openPhoneModal()">📱 Open on Phone</button>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       SITE HEADER / TOP NAVIGATION (Matches design photo)
+       ===================================================================== -->
+  <header class="site-header">
+    <div class="header-container">
+      <a class="brand-logo" onclick="showScreen('screen-home')" title="UBT Prep Home">
+        <span class="brand-icon" data-icon="cap"></span>
+        <span class="brand-text">UBT Prep</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li class="nav-item active" data-nav="home"><a onclick="showScreen('screen-home')">Home</a></li>
+          <li class="nav-item" data-nav="courses"><a onclick="showScreen('screen-courses')">Courses</a></li>
+          <li class="nav-item" data-nav="about"><a onclick="openAboutModal()">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn" title="Search courses" onclick="showScreen('screen-courses')">
+          <span data-icon="search"></span>
+        </button>
+
+        <!-- Logged-out Auth buttons -->
+        <div id="header-auth-buttons" style="display: flex; align-items: center; gap: 10px;">
+          <button class="btn btn-outline btn-sm" onclick="showScreen('screen-auth')">Log in</button>
+          <button class="btn btn-primary btn-sm" onclick="showScreen('screen-auth')">Sign up</button>
+        </div>
+
+        <!-- Logged-in User profile avatar -->
+        <div id="header-user-avatar" class="user-avatar-btn" style="display: none;" title="Student Profile">
+          <span data-icon="user"></span>
+          <div class="user-dropdown" id="user-dropdown-menu">
+            <div class="user-dropdown-header">
+              <div class="user-dropdown-name">Aigerim</div>
+              <div class="user-dropdown-email">aigerim@student.ubt.kz</div>
+            </div>
+            <div class="user-dropdown-item" onclick="showScreen('screen-dashboard')">
+              <span data-icon="home"></span> Dashboard
+            </div>
+            <div class="user-dropdown-item" onclick="showScreen('screen-courses')">
+              <span data-icon="book"></span> Courses
+            </div>
+            <div class="user-dropdown-item" onclick="showScreen('screen-assignments')">
+              <span data-icon="assignment"></span> Assignments
+            </div>
+            <div class="user-dropdown-item" onclick="logoutUser()">
+              <span data-icon="lock"></span> Log out
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       1. HOME PAGE — басты бет
+       ===================================================================== -->
+  <main id="screen-home" class="view-container active-view">
+    <div class="main-wrapper">
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <span class="badge-tag">YOUR SUCCESS STARTS HERE</span>
+          <h1 class="hero-title">Prepare for the<br>National University Test</h1>
+          <p class="hero-subtitle">Study smart. Practice more. Get the score you want.</p>
+          <button class="btn btn-primary hero-cta" onclick="showScreen('screen-courses')">
+            Explore Courses &nbsp;→
+          </button>
+        </div>
+
+        <div class="hero-illustration">
+          <!-- Clean Monochrome 3D/Isometric Books stack with pencil holder -->
+          <svg class="hero-illustration-svg" width="380" height="260" viewBox="0 0 380 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="bookCoverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#1F2937" />
+                <stop offset="100%" stop-color="#111827" />
+              </linearGradient>
+              <linearGradient id="cupGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#111827" />
+                <stop offset="60%" stop-color="#1F2937" />
+                <stop offset="100%" stop-color="#374151" />
+              </linearGradient>
+            </defs>
+
+            <ellipse cx="190" cy="235" rx="160" ry="14" fill="#E5E7EB" fill-opacity="0.8" />
+            <ellipse cx="140" cy="236" rx="90" ry="10" fill="#D1D5DB" fill-opacity="0.6" />
+
+            <!-- Book 1 (Bottom) -->
+            <path d="M 60 215 L 210 185 L 230 195 L 80 225 Z" fill="#111827" />
+            <path d="M 80 225 L 230 195 L 230 207 L 80 237 Z" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5" />
+            <path d="M 82 229 L 228 199" stroke="#E5E7EB" stroke-width="1" />
+            <path d="M 82 233 L 228 203" stroke="#E5E7EB" stroke-width="1" />
+            <path d="M 80 237 L 230 207 L 225 211 L 75 241 Z" fill="#1F2937" />
+            <path d="M 60 215 L 80 225 L 75 241 L 55 231 Z" fill="#111827" />
+
+            <!-- Book 2 (Middle) -->
+            <g transform="translate(10, -22)">
+              <path d="M 65 195 L 215 165 L 235 175 L 85 205 Z" fill="#374151" />
+              <path d="M 85 205 L 235 175 L 235 186 L 85 216 Z" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5" />
+              <path d="M 87 209 L 233 179" stroke="#E5E7EB" stroke-width="1" />
+              <path d="M 87 213 L 233 183" stroke="#E5E7EB" stroke-width="1" />
+              <path d="M 85 216 L 235 186 L 230 190 L 80 220 Z" fill="#1F2937" />
+              <path d="M 65 195 L 85 205 L 80 220 L 60 210 Z" fill="#111827" />
+            </g>
+
+            <!-- Book 3 (Top) -->
+            <g transform="translate(18, -44)">
+              <path d="M 60 175 L 205 146 L 224 156 L 79 185 Z" fill="url(#bookCoverGrad)" stroke="#111827" stroke-width="1.5" />
+              <path d="M 79 185 L 224 156 L 224 167 L 79 196 Z" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5" />
+              <path d="M 81 189 L 222 160" stroke="#E5E7EB" stroke-width="1" />
+              <path d="M 81 193 L 222 164" stroke="#E5E7EB" stroke-width="1" />
+              <path d="M 79 196 L 224 167 L 220 171 L 75 200 Z" fill="#111827" />
+              <path d="M 60 175 L 79 185 L 75 200 L 56 190 Z" fill="#030712" />
+              <path d="M 175 152 L 184 150 L 194 175 L 187 172 L 180 175 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="0.5" />
+            </g>
+
+            <!-- Pencil Cup -->
+            <ellipse cx="280" cy="225" rx="30" ry="7" fill="#D1D5DB" fill-opacity="0.8" />
+            <line x1="264" y1="120" x2="272" y2="180" stroke="#111827" stroke-width="5" stroke-linecap="round" />
+            <polygon points="262,112 267,113 264,122 259,121" fill="#D1D5DB" />
+            <polygon points="262,112 264,106 267,113" fill="#111827" />
+            <rect x="277" y="105" width="5" height="75" rx="2" fill="#111827" />
+            <rect x="278" y="96" width="3" height="9" fill="#9CA3AF" />
+            <line x1="282" y1="112" x2="282" y2="135" stroke="#6B7280" stroke-width="1.5" />
+            <line x1="298" y1="115" x2="286" y2="180" stroke="#374151" stroke-width="5" stroke-linecap="round" />
+            <polygon points="300,107 305,109 301,118 296,116" fill="#D1D5DB" />
+            <polygon points="300,107 304,102 305,109" fill="#111827" />
+            <path d="M 268 128 L 273 126 L 285 175 L 280 177 Z" fill="#E5E7EB" stroke="#9CA3AF" stroke-width="1" />
+            <path d="M 262 165 C 262 160, 298 160, 298 165 L 295 220 C 295 224, 265 224, 265 220 Z" fill="url(#cupGrad)" stroke="#111827" stroke-width="1.5" />
+            <ellipse cx="280" cy="165" rx="18" ry="4.5" fill="#111827" stroke="#374151" stroke-width="1" />
+            <ellipse cx="280" cy="165" rx="15" ry="3.5" fill="#030712" />
+          </svg>
+        </div>
+      </section>
+
+      <!-- Subjects Section -->
+      <section class="subjects-section">
+        <div class="section-header-row">
+          <h2 class="section-title">Subjects</h2>
+          <a class="view-all-link" onclick="showScreen('screen-courses')">View all &nbsp;→</a>
+        </div>
+
+        <div class="subjects-grid">
+          <div class="subject-card" onclick="openCourseDetails('mathematics')">
+            <div class="subject-icon-box" data-icon="calculator"></div>
+            <div class="subject-name">Mathematics</div>
+            <div class="subject-arrow">→</div>
+          </div>
+          <div class="subject-card" onclick="openCourseDetails('informatics')">
+            <div class="subject-icon-box" data-icon="code"></div>
+            <div class="subject-name">Informatics</div>
+            <div class="subject-arrow">→</div>
+          </div>
+          <div class="subject-card" onclick="openCourseDetails('kazakhstan-history')">
+            <div class="subject-icon-box" data-icon="temple"></div>
+            <div class="subject-name">Kazakhstan History</div>
+            <div class="subject-arrow">→</div>
+          </div>
+          <div class="subject-card" onclick="openCourseDetails('reading-literacy')">
+            <div class="subject-icon-box" data-icon="book"></div>
+            <div class="subject-name">Reading Literacy</div>
+            <div class="subject-arrow">→</div>
+          </div>
+          <div class="subject-card" onclick="openCourseDetails('mathematical-literacy')">
+            <div class="subject-icon-box" data-icon="chart"></div>
+            <div class="subject-name">Mathematical Literacy</div>
+            <div class="subject-arrow">→</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       2. LOGIN / SIGN UP — кіру және тіркелу
+       ===================================================================== -->
+  <main id="screen-auth" class="view-container">
+    <div class="auth-page-container">
+      <div class="auth-grid">
+        <!-- Left: Log In -->
+        <div class="auth-card">
+          <h2 class="auth-card-title">Welcome back!</h2>
+          <p class="auth-card-subtitle">Log in to continue your learning journey.</p>
+
+          <form id="login-form">
+            <div class="form-group">
+              <div class="input-with-icon">
+                <span class="input-icon" data-icon="user"></span>
+                <input type="text" id="login-email" class="form-input" placeholder="Email or username" value="aigerim@student.ubt.kz" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-with-icon">
+                <span class="input-icon" data-icon="lock"></span>
+                <input type="password" id="login-password" class="form-input" placeholder="Password" value="••••••••" required>
+                <button type="button" class="input-toggle-password" data-icon="eye" title="Toggle password"></button>
+              </div>
+            </div>
+
+            <div class="form-row-between">
+              <label class="checkbox-label">
+                <input type="checkbox" class="checkbox-input" checked>
+                <span>Remember me</span>
+              </label>
+              <a href="#" class="forgot-link" onclick="showToast('Password reset link sent to your email!')">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full" style="height: 44px;">Log in</button>
+          </form>
+
+          <div class="or-divider"><span>or</span></div>
+
+          <div class="social-buttons">
+            <button class="btn-social" onclick="loginUser('Google Student', 'google@student.ubt.kz')">
+              <span data-icon="google"></span>
+              <span>Continue with Google</span>
+            </button>
+            <button class="btn-social" onclick="loginUser('Apple Student', 'apple@student.ubt.kz')">
+              <span data-icon="apple"></span>
+              <span>Continue with Apple</span>
+            </button>
+          </div>
+
+          <div class="auth-footer-text">
+            Don't have an account? <a href="#screen-auth" onclick="document.getElementById('signup-name').focus()">Sign up</a>
+          </div>
+
+          <!-- Quick One-click Demo helper -->
+          <div class="demo-login-box">
+            <div class="demo-login-box-text">
+              Test Student: <strong>Aigerim</strong>
+            </div>
+            <button class="btn btn-primary btn-sm" onclick="loginUser('Aigerim', 'aigerim@student.ubt.kz')">
+              Demo Log in
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Create Account -->
+        <div class="auth-card">
+          <h2 class="auth-card-title">Create your account</h2>
+          <p class="auth-card-subtitle">Join UBT Prep and start learning today.</p>
+
+          <form id="signup-form">
+            <div class="form-group">
+              <div class="input-with-icon">
+                <span class="input-icon" data-icon="user"></span>
+                <input type="text" id="signup-name" class="form-input" placeholder="Full name" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-with-icon">
+                <span class="input-icon" data-icon="mail"></span>
+                <input type="email" id="signup-email" class="form-input" placeholder="Email address" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="input-with-icon">
+                <span class="input-icon" data-icon="lock"></span>
+                <input type="password" id="signup-password" class="form-input" placeholder="Password" required>
+                <button type="button" class="input-toggle-password" data-icon="eye" title="Toggle password"></button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full" style="height: 44px; margin-top: 10px;">Sign up</button>
+          </form>
+
+          <p class="terms-text">
+            By signing up, you agree to our <a href="#" style="color: var(--text-primary); text-decoration: underline;" onclick="showToast('Terms of Service opened')">Terms of Service</a> and <a href="#" style="color: var(--text-primary); text-decoration: underline;" onclick="showToast('Privacy Policy opened')">Privacy Policy</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       3. COURSES — курстар тізімі
+       ===================================================================== -->
+  <main id="screen-courses" class="view-container">
+    <div class="app-shell">
+      <aside class="app-sidebar">
+        <ul class="sidebar-nav">
+          <li>
+            <a class="sidebar-link active" data-target-screen="screen-courses" onclick="showScreen('screen-courses')">
+              <span data-icon="book"></span>
+              <span>Courses</span>
+            </a>
+          </li>
+          <li>
+            <a class="sidebar-link" data-target-screen="screen-dashboard" onclick="showScreen('screen-dashboard')">
+              <span data-icon="cap"></span>
+              <span>My Learning</span>
+            </a>
+          </li>
+          <li>
+            <a class="sidebar-link" data-target-screen="screen-assignments" onclick="showScreen('screen-assignments')">
+              <span data-icon="chart"></span>
+              <span>Progress</span>
+            </a>
+          </li>
+          <li>
+            <a class="sidebar-link" data-target-screen="screen-assignments" onclick="showScreen('screen-assignments')">
+              <span data-icon="assignment"></span>
+              <span>Assignments</span>
+            </a>
+          </li>
+          <li>
+            <a class="sidebar-link" onclick="showToast('Settings modal')">
+              <span data-icon="settings"></span>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
+
+      <section class="app-main">
+        <div class="page-heading-block">
+          <h1 class="page-title">All Courses</h1>
+          <p class="page-subtitle">Choose a subject and start learning.</p>
+        </div>
+
+        <div class="courses-filter-row">
+          <div class="search-input-wrapper">
+            <span class="search-icon" data-icon="search"></span>
+            <input type="text" id="course-search-input" class="search-field" placeholder="Search courses...">
+          </div>
+
+          <select id="course-subject-select" class="filter-select">
+            <option value="all">All subjects</option>
+            <option value="mathematics">Mathematics</option>
+            <option value="informatics">Informatics</option>
+            <option value="kazakhstan-history">Kazakhstan History</option>
+            <option value="reading-literacy">Reading Literacy</option>
+            <option value="mathematical-literacy">Mathematical Literacy</option>
+          </select>
+        </div>
+
+        <div class="courses-list" id="courses-list-container">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       4. COURSE DETAILS — курс туралы толық ақпарат
+       ===================================================================== -->
+  <main id="screen-course-details" class="view-container">
+    <div class="main-wrapper">
+      <a class="back-link" onclick="showScreen('screen-courses')">
+        <span data-icon="arrowLeft"></span> Back to courses
+      </a>
+
+      <div class="course-hero-card">
+        <div class="course-hero-left">
+          <div class="course-hero-large-icon" id="course-details-icon" data-icon="code"></div>
+          <div class="course-hero-details">
+            <h1 id="course-details-title">Informatics</h1>
+            <p id="course-details-desc">Algorithms, programming, databases.</p>
+            <div class="course-meta-pills">
+              <span class="meta-pill-item">
+                <span data-icon="book"></span>
+                <span id="course-meta-lessons">10 lessons</span>
+              </span>
+              <span class="meta-pill-item">
+                <span data-icon="user"></span>
+                <span id="course-meta-level">Beginner - Advanced</span>
+              </span>
+              <span class="meta-pill-item meta-rating" id="course-meta-rating">
+                <span data-icon="star"></span> 4.8 (120 reviews)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="course-hero-actions">
+          <button class="btn btn-primary" onclick="openLessonViewer()">Start course</button>
+          <button class="btn btn-outline" id="btn-add-wishlist" onclick="toggleWishlist()">
+            <span data-icon="bookmark"></span> <span>Add to wishlist</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="course-tabs-bar">
+        <div class="course-tab-item active" data-tab="overview">Overview</div>
+        <div class="course-tab-item" data-tab="lessons">Lessons</div>
+        <div class="course-tab-item" data-tab="resources">Resources</div>
+        <div class="course-tab-item" data-tab="reviews">Reviews</div>
+      </div>
+
+      <div class="course-details-grid" id="tab-content-overview">
+        <div class="course-info-section">
+          <h3>About this course</h3>
+          <p id="course-details-about">
+            This course covers the main topics of informatics required for the UNT. You will learn programming basics, algorithms, data structures and more through practical examples and exercises.
+          </p>
+
+          <h3>What you will learn</h3>
+          <ul class="learn-list" id="course-learn-list">
+            <!-- Populated via app.js -->
+          </ul>
+        </div>
+
+        <div class="course-sidebar-card">
+          <h3>Course details</h3>
+          <div class="course-spec-list">
+            <div class="course-spec-item">
+              <div class="course-spec-icon" data-icon="clock"></div>
+              <div class="course-spec-content">
+                <div class="course-spec-label">Duration</div>
+                <div class="course-spec-value" id="spec-duration">10 lessons (~12 hours)</div>
+              </div>
+            </div>
+
+            <div class="course-spec-item">
+              <div class="course-spec-icon" data-icon="layers"></div>
+              <div class="course-spec-content">
+                <div class="course-spec-label">Level</div>
+                <div class="course-spec-value" id="spec-level">Beginner - Advanced</div>
+              </div>
+            </div>
+
+            <div class="course-spec-item">
+              <div class="course-spec-icon" data-icon="globe"></div>
+              <div class="course-spec-content">
+                <div class="course-spec-label">Language</div>
+                <div class="course-spec-value" id="spec-language">English</div>
+              </div>
+            </div>
+
+            <div class="course-spec-item">
+              <div class="course-spec-icon" data-icon="award"></div>
+              <div class="course-spec-content">
+                <div class="course-spec-label">Certificate</div>
+                <div class="course-spec-value" id="spec-certificate">Included</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Lessons -->
+      <div id="tab-content-lessons" style="display: none; padding-bottom: 30px;">
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">Curriculum & Syllabus</h3>
+        <div style="background: #FFF; border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <span style="font-size: 14px; font-weight: 600; color: var(--text-secondary);">10 Lessons • 12 Hours total</span>
+            <button class="btn btn-primary btn-sm" onclick="openLessonViewer()">Launch Lesson Player</button>
+          </div>
+          <div id="lessons-interactive-list">
+            <div style="padding: 12px 14px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+              <span>1. Python Fundamentals & Variable Types</span>
+              <span class="badge-completed">Completed</span>
+            </div>
+            <div style="padding: 12px 14px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+              <span>2. Boolean Logic and Branching Conditions</span>
+              <span class="badge-completed">Completed</span>
+            </div>
+            <div style="padding: 12px 14px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+              <span>3. For / While Loops and Nested Statements</span>
+              <span class="badge-completed">Completed</span>
+            </div>
+            <div style="padding: 12px 14px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+              <span>4. Arrays, Lists and String Manipulation</span>
+              <span class="badge-completed">Completed</span>
+            </div>
+            <div style="padding: 12px 14px; display: flex; justify-content: space-between; align-items: center;">
+              <span>5. Function Definitions, Parameters and Recursion</span>
+              <button class="btn btn-primary btn-sm" onclick="openLessonViewer()">Start Lesson</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Resources -->
+      <div id="tab-content-resources" style="display: none; padding-bottom: 30px;">
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">Course Resources & Handouts</h3>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+          <div style="background: #FFF; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 18px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-weight: 600;">UNT Informatics Cheat Sheet (PDF)</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Formulas, shortcuts, syntax guide (2.4 MB)</div>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Downloading cheat sheet PDF...')">Download</button>
+          </div>
+          <div style="background: #FFF; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 18px; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <div style="font-weight: 600;">Practice Test Question Bank</div>
+              <div style="font-size: 12px; color: var(--text-muted);">150 realistic test questions with answers</div>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="showToast('Downloading question bank...')">Download</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab: Reviews -->
+      <div id="tab-content-reviews" style="display: none; padding-bottom: 30px;">
+        <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 16px;">Student Reviews</h3>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="background: #FFF; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 18px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-weight: 600;">Arman K.</span>
+              <span style="color: var(--color-star);">★★★★★ 5.0</span>
+            </div>
+            <p style="font-size: 13px; color: var(--text-secondary);">"The Python algorithms explanation is the clearest I have seen for UNT preparation. Scored 48/50!"</p>
+          </div>
+          <div style="background: #FFF; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 18px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-weight: 600;">Diana M.</span>
+              <span style="color: var(--color-star);">★★★★★ 4.8</span>
+            </div>
+            <p style="font-size: 13px; color: var(--text-secondary);">"Clear structure, great mock tests, and helpful assignments that track your exact weaknesses."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       5. STUDENT DASHBOARD — студенттің жеке кабинеті
+       ===================================================================== -->
+  <main id="screen-dashboard" class="view-container">
+    <div class="app-shell">
+      <aside class="app-sidebar">
+        <div class="sidebar-user-card">
+          <div class="sidebar-user-avatar">A</div>
+          <div class="sidebar-user-info">
+            <span class="sidebar-user-name">Aigerim</span>
+            <span class="sidebar-user-role">Student</span>
+          </div>
+        </div>
+
+        <ul class="sidebar-nav">
+          <li>
+            <a class="sidebar-link active" data-target-screen="screen-dashboard" onclick="showScreen('screen-dashboard')">
+              <span data-icon="home"></span>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a class="sidebar-link" data-target-screen="screen-courses" onclick="showScreen('screen-courses')">
+              <span data-icon="book"></span>
+              <span>My Courses</span>
+            </a>
+          </li>
+          <li>
+            <a class="sidebar-link" data-target-screen="screen-assignments" onclick="showScreen('screen-assignments')">
+              <span data-icon="assignment"></span>
+              <span>Assignments</span>
+            </a>
+          </li>
+          <li>
+            <a class="sidebar-link" data-target-screen="screen-assignments" onclick="showScreen('screen-assignments')">
+              <span data-icon="chart"></span>
+              <span>Progress</span>
+            </a>
+          </li>
+          <li>
+            <a class="sidebar-link" onclick="showToast('Certificates section')">
+              <span data-icon="award"></span>
+              <span>Certificates</span>
+            </a>
+          </li>
+          <li>
+            <a class="sidebar-link" onclick="showToast('Settings modal')">
+              <span data-icon="settings"></span>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
+
+      <section class="app-main">
+        <div class="page-heading-block">
+          <h1 class="page-title">Hello, Aigerim!</h1>
+          <p class="page-subtitle">Keep going! You're doing great.</p>
+        </div>
+
+        <div class="dashboard-stats-row">
+          <div class="stat-card">
+            <div class="stat-icon-box" data-icon="book"></div>
+            <div class="stat-content">
+              <span class="stat-label">Enrolled Courses</span>
+              <span class="stat-value">5</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-box" data-icon="checkCircle"></div>
+            <div class="stat-content">
+              <span class="stat-label">Completed</span>
+              <span class="stat-value">2</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-box" data-icon="clock"></div>
+            <div class="stat-content">
+              <span class="stat-label">In Progress</span>
+              <span class="stat-value">3</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-header-row" style="margin-top: 10px;">
+          <h2 class="section-title">My Courses</h2>
+          <a class="view-all-link" onclick="showScreen('screen-courses')">View all &nbsp;→</a>
+        </div>
+
+        <div class="my-courses-list" id="dashboard-courses-list">
+          <!-- Populated dynamically -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       6. PROGRESS / ASSIGNMENTS — тапсырмалар мен үлгерім
+       ===================================================================== -->
+  <main id="screen-assignments" class="view-container">
+    <div class="app-shell">
+      <aside class="app-sidebar">
+        <ul class="sidebar-nav">
+          <li>
+            <a class="sidebar-link" data-target-screen="screen-dashboard" onclick="showScreen('screen-dashboard')">
+              <span data-icon="home"></span>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a class="sidebar-link" data-target-screen="screen-courses" onclick="showScreen('screen-courses')">
+              <span data-icon="book"></span>
+              <span>My Courses</span>
+            </a>
+          </li>
+          <li>
+            <a class="sidebar-link active" data-target-screen="screen-assignments" onclick="showScreen('screen-assignments')">
+              <span data-icon="assignment"></span>
+              <span>Assignments</span>
+            </a>
+          </li>
+          <li>
+            <a class="sidebar-link" data-target-screen="screen-assignments" onclick="showScreen('screen-assignments')">
+              <span data-icon="chart"></span>
+              <span>Progress</span>
+            </a>
+          </li>
+          <li>
+            <a class="sidebar-link" onclick="showToast('Certificates section')">
+              <span data-icon="award"></span>
+              <span>Certificates</span>
+            </a>
+          </li>
+          <li>
+            <a class="sidebar-link" onclick="showToast('Settings modal')">
+              <span data-icon="settings"></span>
+              <span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
+
+      <section class="app-main">
+        <div class="page-heading-block">
+          <h1 class="page-title">Assignments</h1>
+          <p class="page-subtitle">Complete your tasks and track your progress.</p>
+        </div>
+
+        <div class="assignments-filter-tabs">
+          <button class="assignment-filter-btn active" data-filter="upcoming">Upcoming</button>
+          <button class="assignment-filter-btn" data-filter="completed">Completed</button>
+          <button class="assignment-filter-btn" data-filter="all">All</button>
+        </div>
+
+        <div class="assignments-list" id="assignments-list-container">
+          <!-- Populated dynamically -->
+        </div>
+
+        <div class="overall-progress-card">
+          <div class="overall-progress-header">Your Progress</div>
+          <div class="overall-progress-bar-wrap">
+            <div class="overall-track">
+              <div class="overall-fill" id="overall-progress-fill" style="width: 60%;"></div>
+            </div>
+            <div class="overall-percentage" id="overall-progress-percent">60%</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- =====================================================================
+       INTERACTIVE MODALS
+       ===================================================================== -->
+  <!-- Mobile & Global Access Modal -->
+  <div class="modal-overlay" id="phone-modal">
+    <div class="modal-box" style="max-width: 540px; text-align: center;">
+      <button class="modal-close-btn" onclick="closePhoneModal()">✕</button>
+      
+      <div style="font-size: 28px; margin-bottom: 8px;">📱</div>
+      <h3 class="modal-title">Open on Phone & Any Device</h3>
+      <p class="modal-subtitle" style="margin-bottom: 20px;">
+        Access UBT Prep globally from anywhere in the world on iOS, Android, or PC.
+      </p>
+
+      <!-- QR Code Image -->
+      <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 20px;">
+        <img class="qr-code-img" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://head-milton-divided-thanks.trycloudflare.com" alt="UBT Prep Mobile QR Code">
+        <span style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">Point your phone's camera at this QR code to open</span>
+      </div>
+
+      <!-- Global Public HTTPS Link -->
+      <div style="background: #F9FAFB; border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 14px 16px; margin-bottom: 16px; text-align: left;">
+        <label style="display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;">
+          Global Public URL (Worldwide Access 24/7)
+        </label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="global-url-input" class="form-input" value="https://head-milton-divided-thanks.trycloudflare.com" readonly style="padding: 0 12px; font-size: 13px; font-family: monospace;">
+          <button class="btn btn-primary btn-sm" onclick="copyGlobalUrl()">Copy Link</button>
+        </div>
+      </div>
+
+      <!-- Local Network Link -->
+      <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-muted); padding: 0 4px; margin-bottom: 20px;">
+        <span>Same Wi-Fi Network URL:</span>
+        <code style="background: #F3F4F6; padding: 2px 6px; border-radius: 4px; font-weight: 600; color: var(--text-primary);">http://192.168.1.7:8080</code>
+      </div>
+
+      <div style="display: flex; justify-content: center;">
+        <button class="btn btn-outline btn-full" onclick="closePhoneModal()">Got it!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- About UBT Prep Modal -->
+  <div class="modal-overlay" id="about-modal">
+    <div class="modal-box" style="max-width: 620px;">
+      <button class="modal-close-btn" onclick="closeAboutModal()">✕</button>
+      
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <span style="display: flex; align-items: center; color: var(--primary-black);" data-icon="cap"></span>
+        <span style="font-size: 15px; font-weight: 700; letter-spacing: -0.01em;">UBT Prep</span>
+      </div>
+
+      <h3 class="modal-title" style="font-size: 22px;">About UBT Prep</h3>
+      <p class="modal-subtitle" style="margin-bottom: 20px;">
+        The modern educational platform engineered for the National University Test (ҰБТ / ЕНТ).
+      </p>
+
+      <div style="background: #F9FAFB; border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 18px; margin-bottom: 20px;">
+        <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 14px;">
+          UBT Prep was built to provide every applicant across Kazakhstan with equitable, high-yield preparation tools. We combine official National Testing Center curriculum alignment, video walkthroughs, and smart progress tracking to maximize your score.
+        </p>
+
+        <!-- Stats Grid -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding-top: 10px; border-top: 1px solid var(--border-light);">
+          <div>
+            <div style="font-size: 18px; font-weight: 700; color: var(--text-primary);">15,000+</div>
+            <div style="font-size: 11px; color: var(--text-muted);">Practice Questions</div>
+          </div>
+          <div>
+            <div style="font-size: 18px; font-weight: 700; color: var(--text-primary);">98%</div>
+            <div style="font-size: 11px; color: var(--text-muted);">Grant Attainment</div>
+          </div>
+          <div>
+            <div style="font-size: 18px; font-weight: 700; color: var(--text-primary);">4.8 / 5.0</div>
+            <div style="font-size: 11px; color: var(--text-muted);">Student Rating</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Bullets -->
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+        <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--text-primary);">
+          <span style="color: #10B981; margin-top: 2px;" data-icon="check"></span>
+          <span><strong>Complete Syllabus:</strong> Full coverage of Mathematics, Informatics, Kazakhstan History, Reading Literacy, and Mathematical Literacy.</span>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--text-primary);">
+          <span style="color: #10B981; margin-top: 2px;" data-icon="check"></span>
+          <span><strong>Personal Student Dashboard:</strong> Track course progress, upcoming assignment deadlines, and exam readiness in real time.</span>
+        </div>
+        <div style="display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--text-primary);">
+          <span style="color: #10B981; margin-top: 2px;" data-icon="check"></span>
+          <span><strong>Real Exam Practice:</strong> Interactive test questions with step-by-step solutions and speed-solving shortcuts.</span>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 12px;">
+        <button class="btn btn-outline btn-sm" onclick="closeAboutModal()">Close</button>
+        <button class="btn btn-primary btn-sm" onclick="closeAboutModal(); showScreen('screen-courses');">
+          Explore Courses &nbsp;→
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Assignment Solver Modal -->
+  <div class="modal-overlay" id="assignment-modal">
+    <div class="modal-box">
+      <button class="modal-close-btn" onclick="closeAssignmentModal()">✕</button>
+      <h3 class="modal-title" id="modal-assign-title">Assignment</h3>
+      <p class="modal-subtitle" id="modal-assign-course">Mathematics • Due: Apr 28, 2025</p>
+
+      <div style="background: #F9FAFB; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 16px; margin-bottom: 20px; font-weight: 500; font-family: monospace; white-space: pre-wrap;" id="modal-assign-question">
+        Question text
+      </div>
+
+      <div id="modal-assign-options" style="margin-bottom: 24px;"></div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 12px;">
+        <button class="btn btn-outline btn-sm" onclick="closeAssignmentModal()">Cancel</button>
+        <button class="btn btn-primary btn-sm" onclick="submitAssignmentAnswer()">Submit Answer</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lesson Player Modal -->
+  <div class="modal-overlay" id="lesson-modal">
+    <div class="modal-box" style="max-width: 600px;">
+      <button class="modal-close-btn" onclick="closeLessonViewer()">✕</button>
+      <h3 class="modal-title" id="lesson-modal-title">Course Lessons</h3>
+      <p class="modal-subtitle">Interactive video lessons & practical tasks</p>
+      
+      <div id="lesson-modal-list" style="max-height: 380px; overflow-y: auto; padding-right: 4px; margin-bottom: 20px;"></div>
+
+      <div style="display: flex; justify-content: flex-end;">
+        <button class="btn btn-primary btn-sm" onclick="closeLessonViewer()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast-notification">
+    <span data-icon="checkCircle"></span>
+    <span id="toast-message">Notification</span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/icons.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
